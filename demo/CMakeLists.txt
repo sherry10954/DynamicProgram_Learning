@@ -1,0 +1,2 @@
+add_subdirectory(solution1)
+add_subdirectory(solution2)
