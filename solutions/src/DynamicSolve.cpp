@@ -64,3 +64,29 @@ int DynamicSolve::minPathSum(std::vector<std::vector<int>> &grid) {
     }
     return dp[cols - 1];
 }
+
+int DynamicSolve::minDistance(std::string word1, std::string word2) {
+    unsigned int m = word1.length();
+    unsigned int n = word2.length();
+    vector<int> dp(n+1, 0); // m = 0;
+    for (int j = 0; j <= n; j++){
+        dp[j] = j;
+    }
+    int dp_pre = 0;
+    for (int i = 1; i <= m; i++){
+        dp_pre = dp[0];
+        dp[0] = i;
+        for (int j = 1; j <= n; j++){
+            int temp_pre = dp[j];
+            int temp_min = dp[j-1] < dp[j] ? dp[j-1] : dp[j];
+            dp[j] = temp_min < dp_pre ? temp_min : dp_pre;
+            if (word1[i-1] != word2[j-1]){
+                dp[j] += 1;
+            } else{
+                dp[j] = dp_pre;
+            }
+            dp_pre = temp_pre;
+        }
+    }
+    return dp[n];
+}
